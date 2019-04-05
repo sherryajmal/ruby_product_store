@@ -1,9 +1,9 @@
-class DiscountRule
+class DiscountDeal
   attr_accessor :discount_per_item
 
   def initialize(code, quantity, discount_per_item)
-    @code = code
-    @quantity = quantity
+    @code              = code
+    @quantity          = quantity
     @discount_per_item = discount_per_item
   end
 

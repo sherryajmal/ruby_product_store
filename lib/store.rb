@@ -13,13 +13,13 @@ class Store
     @inventory[code.to_sym]
   end
 
-  def add_product(code, name, price)
-    product = Product.new(code, name, price)
-    @inventory[code.to_sym] = product
+  def update(product, code, name, price)
+    prod = Product.new(code, name, price)
+    @inventory[code.to_sym] = prod
   end
 
   def list
-    Terminal::Table.new(title: "Cabify's Store", headings: [ 'Code', 'Name', 'Price'], rows: to_a)
+    Terminal::Table.new(title: "Droidox Computer Store", headings: [ 'SKU', 'Name', 'Price'], rows: to_a)
   end
 
   def products_quantity

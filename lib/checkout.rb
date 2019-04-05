@@ -5,21 +5,30 @@ class Checkout
   attr_reader :total, :store, :items
 
   def initialize(pricing_rules)
-    @rules = pricing_rules
-    voucher = Product.new('VOUCHER', 'Cabify Voucher', 5.0)
-    tshirt = Product.new('TSHIRT', 'Cabify T-Shirt', 20.0)
-    mug = Product.new('MUG', 'Cafify Coffee Mug', 7.5)
-    @store = Store.new(voucher, tshirt, mug)
-    @items = []
+    @rules       = pricing_rules
+    ipd          = Product.new('ipd', 'Super iPad', 549.99)
+    mbp          = Product.new('mbp', 'MacBook Pro', 1399.99)
+    atv          = Product.new('atv', 'Apple TV', 109.50)
+    vga          = Product.new('vga', 'VGA adapter', 30.00)
+    @store       = Store.new(ipd, mbp, atv, vga)
+    @items       = []
     @valid_codes = @store.valid_codes
   end
 
   def scan(code)
     if @valid_codes.include?(code)
-      product = @store.find(code)
-      item = Item.new(product.code, product.price)
-      @items.push(item)
-      true
+      if code == 'mbp'
+        product = @store.find(code)
+        item    = Item.new(product.code, product.price)
+        vga     = @store.find('vga')
+        free    = Item.new(vga.code, 0.0)
+        @items.push(item, free)
+      else
+        product = @store.find(code)
+        item    = Item.new(product.code, product.price)
+        @items.push(item)
+      end
+        true
     else
       false
     end
@@ -28,7 +37,7 @@ class Checkout
   def show
     items = @items.map(&:code).join(', ')
     puts items.size > 0 ? "Items: #{items}" : 'No items to checkout'
-    puts "Total: #{self.total}€"
+    puts "Total: $#{self.total}"
   end
 
   def total

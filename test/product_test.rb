@@ -4,9 +4,9 @@ require_relative '../lib/product.rb'
 class ProductTest < Test::Unit::TestCase
 
   def setup
-    @code = 'VOUCHER'
-    @name = 'Cabify Voucher'
-    @price = 5.00
+    @code    = 'ipd'
+    @name    = 'Super iPad'
+    @price   = 549.99
     @product = Product.new(@code, @name, @price)
   end
 
