@@ -2,17 +2,17 @@ require_relative 'lib/checkout.rb'
 require_relative 'lib/discount_deal.rb'
 require_relative 'lib/three_for_two_deal.rb'
 
-# Print variables
-def prompt
-  print '>> '
-end
 
 def breakline
   puts "\n"
 end
 
+def prompt
+  print '>> '
+end
+
 @rule_one   = ThreeForTwoDeal.new('atv')
-@rule_two   = DiscountRule.new('ipd', 4, 50.00)
+@rule_two   = DiscountDeal.new('ipd', 4, 50.00)
 @checkout   = Checkout.new([ @rule_one, @rule_two])
 
 @store      = @checkout.store
@@ -51,9 +51,8 @@ while option != 6
     price   = gets.chomp.to_f
 
     @store.update(product, code, name, price)
-    product = @store.find(code)
     breakline
-    puts 'The next product was created successfully'
+    puts 'The next product was updated successfully'
     puts product.to_s
   when 3
     puts 'Please enter SKU:'
@@ -65,7 +64,7 @@ while option != 6
   when 4
     @checkout.show
   when 5
-    puts 'Bye bye user!'
+    puts 'Good Bye!'
   else
     puts 'Please select a correct option'
   end
